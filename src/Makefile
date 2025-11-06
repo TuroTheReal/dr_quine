@@ -37,33 +37,33 @@ BLEU = \033[1;34m
 #******************************************************************************
 
 all: $(COLLEEN) $(GRACE) $(SULLY)
-	@echo "$(GREEN)✓ Tous les programmes sont compilés !$(RESET)"
+	@echo "$(ROSE)✓ Tous les programmes sont compilés !$(RESET)"
 
 $(COLLEEN): $(COLLEEN_SRC)
-	@echo "$(BLUE)⚙ Compilation de $(COLLEEN)...$(RESET)"
+	@echo "$(BLEU)⚙ Compilation de $(COLLEEN)...$(RESET)"
 	@$(CC) $(CFLAGS) $(COLLEEN_SRC) -o $(COLLEEN)
-	@echo "$(GREEN)✓ $(COLLEEN) créé avec succès !$(RESET)"
+	@echo "$(ROSE)✓ $(COLLEEN) créé avec succès !$(RESET)"
 
 $(GRACE): $(GRACE_SRC)
-	@echo "$(BLUE)⚙ Compilation de $(GRACE)...$(RESET)"
+	@echo "$(BLEU)⚙ Compilation de $(GRACE)...$(RESET)"
 	@$(CC) $(CFLAGS) $(GRACE_SRC) -o $(GRACE)
-	@echo "$(GREEN)✓ $(GRACE) créé avec succès !$(RESET)"
+	@echo "$(ROSE)✓ $(GRACE) créé avec succès !$(RESET)"
 
 $(SULLY): $(SULLY_SRC)
-	@echo "$(BLUE)⚙ Compilation de $(SULLY)...$(RESET)"
+	@echo "$(BLEU)⚙ Compilation de $(SULLY)...$(RESET)"
 	@$(CC) $(CFLAGS) $(SULLY_SRC) -o $(SULLY)
-	@echo "$(GREEN)✓ $(SULLY) créé avec succès !$(RESET)"
+	@echo "$(ROSE)✓ $(SULLY) créé avec succès !$(RESET)"
 
 clean:
-	@echo "$(YELLOW)🧹 Nettoyage des fichiers temporaires...$(RESET)"
-	@rm -f *.o
-	@echo "$(GREEN)✓ Nettoyage terminé !$(RESET)"
+	@echo "$(VIOLET)🧹 Nettoyage des fichiers temporaires...$(RESET)"
+	@rm -rf *.o *_kid.c tmp/
+	@echo "$(ROSE)✓ Nettoyage terminé !$(RESET)"
 
 fclean: clean
-	@echo "$(RED)🗑️  Suppression des exécutables...$(RESET)"
+	@echo "$(VERT)🗑️  Suppression des exécutables...$(RESET)"
 	@rm -f $(COLLEEN) $(GRACE) $(SULLY)
-	@rm -f Grace_kid.c Sully_*.c Sully_*
-	@echo "$(GREEN)✓ Tout est propre !$(RESET)"
+	@rm -f Grace_kid.c Sully_*.c Sully_* tmp_Colleen
+	@echo "$(ROSE)✓ Tout est propre !$(RESET)"
 
 re: fclean all
 
