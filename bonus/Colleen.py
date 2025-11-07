@@ -7,8 +7,8 @@ def my_function():
 
 def main():
     # Inside comment
-    code = '#!/usr/bin/env python3\n# Outside comment\n\ndef my_function():\n    """Fonction supplémentaire requise"""\n    pass\n\ndef main():\n    # Inside comment\n    code = {!r}\n    print(code.format(code))\n    my_function()\n\nif __name__ == "__main__":\n    main()\n'
-    print(code.format(code))
+    code = '#!/usr/bin/env python3\n# Outside comment\n\ndef my_function():\n    """Fonction supplémentaire requise"""\n    pass\n\ndef main():\n    # Inside comment\n    code = {!r}\n    print(code.format(code), end="")\n    my_function()\n\nif __name__ == "__main__":\n    main()'
+    print(code.format(code), end="")
     my_function()
 
 if __name__ == "__main__":

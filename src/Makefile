@@ -62,7 +62,7 @@ clean:
 fclean: clean
 	@echo "$(VERT)🗑️  Suppression des exécutables...$(RESET)"
 	@rm -f $(COLLEEN) $(GRACE) $(SULLY)
-	@rm -f Grace_kid.c Sully_*.c Sully_* tmp_Colleen
+	@rm -f Grace_kid.c Sully_*.c Sully_* tmp_colleen
 	@echo "$(ROSE)✓ Tout est propre !$(RESET)"
 
 re: fclean all
