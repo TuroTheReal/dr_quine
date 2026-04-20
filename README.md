@@ -15,8 +15,8 @@
 
 ## About
 
-This repository contains my implementation of the **Dr. Quine** project.  
-Dr. Quine explores the fascinating world of **self-reproducing programs** (quines) and illustrates **Kleene's recursion theorem**, a fundamental concept in computability theory and computer science philosophy.  
+This repository contains my implementation of the **Dr. Quine** project.
+Dr. Quine explores the fascinating world of **self-reproducing programs** (quines) and illustrates **Kleene's recursion theorem**, a fundamental concept in computability theory and computer science philosophy.
 Implemented in **C**, **Python**, and **ASM (x86_64)**, this project demonstrates that programs can access and output their own source code without external file reading, using clever string manipulation, format specifiers, and self-referential techniques.
 
 The project proves the theoretical possibility of self-replication in computation and provides practical implementations of various quine variants across multiple programming languages.
@@ -167,8 +167,8 @@ This creates a fixed point where the program's output exactly matches its source
 
 ### Colleen (Simple Quine)
 
-**Purpose**: Outputs its own source code to stdout  
-**Technique**: Single printf with format string containing entire program  
+**Purpose**: Outputs its own source code to stdout
+**Technique**: Single printf with format string containing entire program
 **Key Challenge**: Properly escaping quotes, newlines, and backslashes
 
 **Example Structure**:
@@ -189,8 +189,8 @@ diff Colleen.c tmp.c  # Exit code 0 = identical
 
 ### Grace (File-Writing Quine)
 
-**Purpose**: Writes its own source code to file `Grace_kid.c`  
-**Technique**: Uses fprintf to write to file instead of stdout  
+**Purpose**: Writes its own source code to file `Grace_kid.c`
+**Technique**: Uses fprintf to write to file instead of stdout
 **Key Challenge**: Opening file, writing source, proper cleanup
 
 **Example Structure**:
@@ -214,8 +214,8 @@ diff Grace.c Grace_kid.c  # Exit code 0 = identical
 
 ### Sully (Recursive Generation Quine)
 
-**Purpose**: Creates decreasing generations of itself (Sully_5 → Sully_0)  
-**Technique**: Embeds counter, writes source with decremented value, compiles and executes  
+**Purpose**: Creates decreasing generations of itself (Sully_5 → Sully_0)
+**Technique**: Embeds counter, writes source with decremented value, compiles and executes
 **Key Challenge**: System calls for compilation and execution, proper counter handling
 
 **Example Flow**:
@@ -428,6 +428,13 @@ cd "test dir" && ./Colleen
 * ✅ Optimized quine size and complexity
 * ✅ Creative variations on core quine concepts
 
+## 📝 Related Articles
+
+Blog posts documenting the learning process and context behind this project:
+
+- 📝 [42 Piscine and Common Core: What I Learned](https://arthur-portfolio.com/en/blog/42-piscine-and-core-curriculum) — Reflections on 42 School's selection process and 2-year curriculum
+
+---
 ## Contact
 
 * **GitHub**: [@TuroTheReal](https://github.com/TuroTheReal)
