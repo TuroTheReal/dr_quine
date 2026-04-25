@@ -3,6 +3,7 @@
 ## Table of Contents
 
 * [About](#about)
+* [Project Structure](#project-structure)
 * [Installation](#installation)
 * [Usage](#usage)
 * [Key Concepts Learned](#key-concepts-learned)
@@ -12,22 +13,42 @@
 * [Theoretical Foundation](#theoretical-foundation)
 * [Testing](#testing)
 * [42 School Standards](#42-school-standards)
+* [Related Articles](#-related-articles)
+* [Contact](#contact)
 
 ## About
 
 This repository contains my implementation of the **Dr. Quine** project.
 Dr. Quine explores the fascinating world of **self-reproducing programs** (quines) and illustrates **Kleene's recursion theorem**, a fundamental concept in computability theory and computer science philosophy.
-Implemented in **C**, **Python**, and **ASM (x86_64)**, this project demonstrates that programs can access and output their own source code without external file reading, using clever string manipulation, format specifiers, and self-referential techniques.
+Implemented in **C** (mandatory part) and **Python** (bonus part), this project demonstrates that programs can access and output their own source code without external file reading, using clever string manipulation, format specifiers, and self-referential techniques.
 
 The project proves the theoretical possibility of self-replication in computation and provides practical implementations of various quine variants across multiple programming languages.
+
+## Project Structure
+
+```
+dr_quine/
+├── README.md
+├── src/                # Mandatory part — C implementations
+│   ├── Makefile
+│   ├── Colleen.c
+│   ├── Grace.c
+│   ├── Sully.c
+│   └── test.sh
+└── bonus/              # Bonus part — Python implementations
+    ├── Colleen.py
+    ├── Grace.py
+    ├── Sully.py
+    ├── make.sh
+    └── clean.sh
+```
 
 ## Installation
 
 ### Prerequisites
 
 * **C Compiler** (gcc/clang)
-* **Python 3** interpreter
-* **NASM** assembler (for ASM quines)
+* **Python 3** interpreter (for bonus)
 * **Make** utility
 * **UNIX/Linux environment**
 
@@ -38,13 +59,9 @@ The project proves the theoretical possibility of self-replication in computatio
 git clone https://github.com/TuroTheReal/dr_quine.git
 cd dr_quine
 
-# Compile all quines
+# Compile the C quines (mandatory part)
+cd src
 make
-
-# Compile specific language
-make c        # C quines only
-make python   # Python quines only
-make asm      # ASM quines only
 
 # Clean object files
 make clean
@@ -54,6 +71,11 @@ make fclean
 
 # Recompile
 make re
+
+# Bonus (Python quines)
+cd ../bonus
+./make.sh       # Prepare / run Python quines
+./clean.sh      # Clean generated files
 ```
 
 ## Usage
@@ -61,26 +83,19 @@ make re
 ### Basic Quines (Colleen, Grace, Sully)
 
 ```bash
-# C Quines
+# C Quines (from src/)
 ./Colleen > tmp_Colleen
 diff Colleen.c tmp_Colleen
 
 ./Grace
 ./Sully
 
-# Python Quines
+# Python Quines (from bonus/)
 python3 Colleen.py > tmp_Colleen.py
 diff Colleen.py tmp_Colleen.py
 
 python3 Grace.py
 python3 Sully.py
-
-# ASM Quines
-./Colleen_asm > tmp_Colleen.s
-diff Colleen.s tmp_Colleen.s
-
-./Grace_asm
-./Sully_asm
 ```
 
 ### Self-Replicating Programs
@@ -126,7 +141,6 @@ diff Grace.c Grace_kid.c  # Should be identical
 
 * **C String Literals**: Working with char arrays and printf formatting
 * **Python String Formatting**: Using f-strings, .format(), and % operators
-* **ASM Data Sections**: Storing strings in .data segment and outputting with syscalls
 * **Cross-Language Patterns**: Identifying common quine patterns across languages
 
 ### Program Self-Awareness
@@ -140,7 +154,7 @@ diff Grace.c Grace_kid.c  # Should be identical
 
 * **Advanced String Manipulation**: Expert-level string formatting and escaping
 * **Theoretical Understanding**: Deep grasp of computability and recursion theory
-* **Multi-Language Proficiency**: Implementing identical logic across C, Python, ASM
+* **Multi-Language Proficiency**: Implementing identical logic across C and Python
 * **Format Specifier Mastery**: Creative use of printf, sprintf, and format strings
 * **Code Golf Techniques**: Writing minimal, elegant self-reproducing code
 * **Pattern Recognition**: Identifying quine structure across different paradigms
@@ -246,9 +260,8 @@ diff Sully_5.c <(cat Sully.c | sed 's/5/4/')  # Simplified check
 ### Language Variants
 
 Each quine (Colleen, Grace, Sully) is implemented in:
-- **C**: Using printf/fprintf and char* strings
-- **Python**: Using print() and f-strings or .format()
-- **ASM (x86_64)**: Using syscall write with .data section strings
+- **C** (mandatory): Using printf/fprintf and char* strings
+- **Python** (bonus): Using print() and f-strings or .format()
 
 ## Theoretical Foundation
 
@@ -296,11 +309,6 @@ echo $?  # Should be 0
 python3 Colleen.py > tmp_Colleen.py
 diff Colleen.py tmp_Colleen.py
 echo $?  # Should be 0
-
-# ASM version
-./Colleen_asm > tmp_Colleen.s
-diff Colleen.s tmp_Colleen.s
-echo $?  # Should be 0
 ```
 
 ### Grace Verification
@@ -314,11 +322,6 @@ echo $?  # Should be 0
 # Python version
 python3 Grace.py
 diff Grace.py Grace_kid.py
-echo $?  # Should be 0
-
-# ASM version
-./Grace_asm
-diff Grace.s Grace_kid.s
 echo $?  # Should be 0
 ```
 
@@ -342,28 +345,13 @@ ls Sully_{5,4,3,2,1,0}.py
 # ... check each creates correct next generation
 ```
 
-### Comprehensive Test Script
+### Automated Test Script
+
+A helper script `src/test.sh` is provided to verify the C quines in one run.
 
 ```bash
-#!/bin/bash
-# test_all_quines.sh
-
-echo "Testing Colleen..."
-./Colleen > tmp_Colleen.c && diff -q Colleen.c tmp_Colleen.c
-python3 Colleen.py > tmp_Colleen.py && diff -q Colleen.py tmp_Colleen.py
-
-echo "Testing Grace..."
-./Grace && diff -q Grace.c Grace_kid.c
-python3 Grace.py && diff -q Grace.py Grace_kid.py
-
-echo "Testing Sully..."
-./Sully
-for i in {5..1}; do
-    [ -f "Sully_$i.c" ] && [ -f "Sully_$i" ] && echo "Sully_$i OK"
-done
-[ -f "Sully_0.c" ] && [ ! -f "Sully_0" ] && echo "Sully_0 OK (no executable)"
-
-echo "All tests completed!"
+cd src
+./test.sh
 ```
 
 ### Edge Cases
@@ -389,10 +377,10 @@ cd "test dir" && ./Colleen
 
 ### Project Standards
 
-* ✅ No memory leaks (validated with valgrind for C/ASM versions)
+* ✅ No memory leaks (validated with valgrind for C versions)
 * ✅ True quines (no external file reading)
 * ✅ Proper format string usage for self-replication
-* ✅ Multi-language implementation (C, Python, ASM)
+* ✅ Multi-language implementation (C mandatory, Python bonus)
 * ✅ Recursive generation with proper termination (Sully)
 * ✅ Norm compliance for C code
 
@@ -421,11 +409,10 @@ cd "test dir" && ./Colleen
 * ✅ Efficient string manipulation techniques
 * ✅ Clear demonstration of Kleene's recursion theorem
 
-### Bonus Features (Optional)
+### Bonus Features
 
-* ✅ Additional language implementations (Shell, etc.)
-* ✅ Polyglot quines (valid in multiple languages)
-* ✅ Optimized quine size and complexity
+* ✅ Python implementations of Colleen, Grace, and Sully
+* ✅ Helper scripts (`make.sh`, `clean.sh`) to run and clean bonus
 * ✅ Creative variations on core quine concepts
 
 ## 📝 Related Articles
@@ -435,6 +422,7 @@ Blog posts documenting the learning process and context behind this project:
 - 📝 [42 Piscine and Common Core: What I Learned](https://arthur-portfolio.com/en/blog/42-piscine-and-core-curriculum) — Reflections on 42 School's selection process and 2-year curriculum
 
 ---
+
 ## Contact
 
 * **GitHub**: [@TuroTheReal](https://github.com/TuroTheReal)
@@ -445,5 +433,4 @@ Blog posts documenting the learning process and context behind this project:
 
 [![Made with C](https://img.shields.io/badge/Made%20with-C-blue.svg)](https://img.shields.io/badge/Made%20with-C-blue.svg)
 [![Python](https://img.shields.io/badge/Python-3.x-green.svg)](https://img.shields.io/badge/Python-3.x-green.svg)
-[![Assembly](https://img.shields.io/badge/ASM-x86__64-red.svg)](https://img.shields.io/badge/ASM-x86__64-red.svg)
 [![Quine Theory](https://img.shields.io/badge/Theory-Kleene's%20Recursion-orange.svg)](https://img.shields.io/badge/Theory-Kleene's%20Recursion-orange.svg)
